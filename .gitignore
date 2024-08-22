@@ -1,0 +1,9 @@
+# Python virtual environment
+newenv2/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.env

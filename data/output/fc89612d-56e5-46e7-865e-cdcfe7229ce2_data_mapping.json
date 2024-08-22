@@ -1,0 +1,42 @@
+{
+    "master_id": "fc89612d-56e5-46e7-865e-cdcfe7229ce2",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "77694943-f241-4fa8-b38a-d058b783a554",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nApple. A name that pops up in the news almost as frequently as it does in the pop culture lexicon, the two most well-known brands being Apple and Mac. Mac. With all of its hype, the Macintosh brand is one of the largest and most iconic brands in the world. Yet, the name has been largely absent from everyday life for a long while, and today, the name is so iconic that people have been saying the name."
+        },
+        {
+            "id": "a595eebd-99d1-4c3f-9f0f-9815227adbc1",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nOne of the largest data sets in the entire history of mankind, one of the most complex and complex to process even today, consists of over 20 million Apple trees. One of the largest data sets in the entire history of mankind, one of the most complex and complex to process even today, consists of over 20 million Apple trees.\n\n\u201cApple\u201d is one of the words used to describe a single apple. It doesn\u2019t."
+        },
+        {
+            "id": "6f56b437-8537-43cd-b6da-3af8c86f17e4",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it. Define it."
+        }
+    ]
+}

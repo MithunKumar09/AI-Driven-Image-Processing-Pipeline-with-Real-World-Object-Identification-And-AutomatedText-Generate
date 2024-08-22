@@ -1,0 +1,42 @@
+{
+    "master_id": "8f737d58-15b8-49d1-9492-2f5e0c8a34d3",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "5d133d44-5fed-4e93-957d-87bd1ff6fe92",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world. This isn\u2019t just an opinion about this being a game about a fictional fruit, or \u201cjust a game\u201d, it\u2019s a game about a fictional fruit.\n\nYou don\u2019t actually play the game. You don\u2019t need to. It\u2019s just supposed to be a game about eating apples.\n\nApple is a fictional fruit. They\u2019re just supposed to be the name."
+        },
+        {
+            "id": "773685d1-1333-45a1-9b42-cc5a301e4d15",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nI don't know why it took me this long, but for me, in the end, defining apple really is a way of creating a good user experience that can be used, and, hopefully, understood by the human brain.\n\nFor me the challenge is how to make the system and the system's interface easier to understand for people with different learning styles. I have been to the Apple store with teachers that have their own ideas and have come."
+        },
+        {
+            "id": "3da77ffd-660b-4b2a-b226-8cb1f7ce0062",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world.\n\nI've come to realize that when you're not a creator or an author, but you have the chance to create things and get them out into the real world, your ideas will be of interest. They are not just yours to take and use. It's not like a creator is out in the world and trying to collect all those ideas and make it theirs and to put them into a book. Your ideas are out there already and if you want."
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "master_id": "aa7b0d13-75a9-4cfc-82ce-ac2fa338d681",
+    "extracted_text": "Apples Fresh Apple New One Red APPLES Apple Red Apple",
+    "objects": [
+        {
+            "id": "2b9e6d54-4deb-4e4a-8d9d-89156908a321",
+            "label": "hot dog",
+            "score": 0.9923420548439026,
+            "box": [
+                183,
+                241,
+                725,
+                797
+            ],
+            "description": "Define apple in the real world.\nYou should have a real name.\nWhat should be your real name?\n[MUSIC]\nWhat should be your name in real world\n[MUSIC]\nWhat should be your name in the real world\n[MUSIC]\nWhat should be your name in the real world\n[MUSIC]\nWhat should be your name in the real world\nWhat should be your name in the real world\n\nWe."
+        },
+        {
+            "id": "94cae55c-bc40-493e-9ec0-3d8a13799831",
+            "label": "hot dog",
+            "score": 0.9951713681221008,
+            "box": [
+                756,
+                167,
+                1319,
+                732
+            ],
+            "description": "Define apple in the real world.\n\nApple is a common name. The apple does not exist in the English language; it is a translation. It means \"apple tree\" in some languages. It also has other meanings. The name has come to be used to mean not only an apple-shaped apple, but also any product produced in the fruit that contains an apple core, i.e., apple sauce, apple butter, apple juice, apple cider, apple jelly, apple sauce,."
+        }
+    ]
+}

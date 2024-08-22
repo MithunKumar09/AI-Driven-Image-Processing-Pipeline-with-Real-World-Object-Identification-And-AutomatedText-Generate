@@ -1,0 +1,42 @@
+{
+    "master_id": "15100918-87f1-475c-9bfb-b10e55a1e416",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "cc6374a8-96ba-4718-b182-a99f08619331",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Definition of apple is unavailable."
+        },
+        {
+            "id": "dd779e46-eb18-4817-81a6-426d8758fd2d",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\nYou should probably take a\nlook at the Apple\nApples.\nSo apple, these are these\nare like the apples of\ncourse I use them on my own\nown apples in these cases but\nyou could use them all over\nthe place that's what they're\nfor right? So apple, there are\nthese are these are things that\nI have to use that I'm very\ncareful so you should have\na."
+        },
+        {
+            "id": "cf857e11-4885-4a75-86bd-7127c84474a8",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world. What does this definition look like for Apple, or Apple in the real world? Do you have a dictionary, or an online dictionary, or a Google or Bing or Yahoo? Or is it still a hard task.\n\nThe question is: What would this definition look like in the real world?\n\nThe answer might not be in a dictionary, or it might not be the kind of dictionary that was published in the year 2000. No, it\ufffd."
+        }
+    ]
+}

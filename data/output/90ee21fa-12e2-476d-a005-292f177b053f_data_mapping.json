@@ -1,0 +1,42 @@
+{
+    "master_id": "90ee21fa-12e2-476d-a005-292f177b053f",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "02b44cb0-210a-4b9a-9975-b291de820eaf",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nI am very very excited to welcome you to the Apple website. As you know, I have a love-hate relationship with Apple computers. You probably guessed that when I started using this website, I was not a fan. Not because they don\u2019t have a good product.\n\nI am a fan because it\u2019s a wonderful technology, especially if you love the Apple iOS.\n\nThat said, their products can be slow."
+        },
+        {
+            "id": "175bfa00-f8f2-4898-a8e9-dcdefd3ea852",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world. What is it? A tree? A vegetable? A fruit? A sweet-tart cherry-red apple? A sour-sweet pear? A tart-sweet gingko (Kokonas)? A sour-sweet mango? A sour-sweet peach? A sour-sweet pear orchard? A sour-sweet pear? A tart-sweet apple? A tart-sweet apple orchard? A sour-sweet apple orchard? A tart."
+        },
+        {
+            "id": "3ef78d7c-0f23-4982-b72f-deda7a1886f3",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world. This blog is all about apple culture and apple eating.\n\nWednesday, July 13, 2009\n\nApple Crisp!\n\nWe had an evening out in town recently and wanted to have some fun, so we brought out a few more apple cider in the case. My brother and I went out on our bikes and rode down to a place called Apple Pies. We arrived and had one large apple pie, with just an apple and a crust."
+        }
+    ]
+}

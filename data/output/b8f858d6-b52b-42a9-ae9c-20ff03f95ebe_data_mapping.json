@@ -1,0 +1,42 @@
+{
+    "master_id": "b8f858d6-b52b-42a9-ae9c-20ff03f95ebe",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "1dca91f9-5e2b-4510-a756-0167f30b27fd",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world. What happens when you have two Apple computers\n\nI\u2019m a huge fan of the Apple ecosystem. When I bought a Mac, I loved that I could\njust plug the keyboard into one of the USB ports and plug it in to my PC, and\nswitch it on. And I also love how the keyboard has a dedicated function key for\npushing a menu, and I never had to use the keyboard function keys to get to\nplaces."
+        },
+        {
+            "id": "f937b735-b89f-4c58-be9d-c276e2eb1f49",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\nIn the previous exercise, you used the word 'apple' but it wasn't entirely accurate. You should have used the word 'Apple'. \nNow define a piece of equipment, such as an apple. This will give you a definition you can work with."
+        },
+        {
+            "id": "7cf3bc86-3527-488a-b6ef-c9c1eb270013",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world. A computer.\n\nIn what will probably turn out to be one of the most popular essays of the year, Richard D. Kahle, Associate Professor of Mathematics at Harvard\u2019s Graduate School of Design, writes about the ways in which Apple\u2019s new MacBook computer and iMac desktop are redefining the way we think about computers, even if only in their own, \u201cnew\u201d sense. The essay concludes with a set of predictions."
+        }
+    ]
+}

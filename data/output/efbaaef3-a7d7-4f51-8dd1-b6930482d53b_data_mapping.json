@@ -1,0 +1,42 @@
+{
+    "master_id": "efbaaef3-a7d7-4f51-8dd1-b6930482d53b",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "76ac3003-aa9e-4181-93f7-1895d3380c6b",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world. Make sure you keep them within that real-world radius, and that the world is within the user's realm. That is, if you had to type the string apple in the prompt, it might be too hard to get through. But I would bet that it would be impossible to get to it from the prompt, because Apple is such a rare and powerful word. I mean, every time you type \"apple\", you get something different, so it would."
+        },
+        {
+            "id": "c7979696-6f99-40f2-8f2b-438bd4807bd9",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world. Let's call a function named \"Apple\" that is to be invoked in a JavaFX program. I'm declaring the function in the class with the name \"className\" and I'm also passing the name of the class by name.\n\nApple func = new Apple();\n\nLet's say I create a new Apple instance with the name Apple() and assign the function name \"func\" to it. In the JavaFX program, will Apple()."
+        },
+        {
+            "id": "3e1f5529-5c67-4002-9da5-dfed7688edb7",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world.\n\nApple as a real food?\n\nApple\u2019s place in the world as a real food comes from a different history than we think.\n\nThe earliest records of apples were found in the Etruscan Bronze Age (4th century B.C.) around the Mediterranean, where Egyptians would gather acorns. These are believed to have come from the northern hemisphere, which is where their seeds were thought to be from. But the seeds."
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "master_id": "d4e83b18-cdef-4e4a-a858-0903eeeba194",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "8e22091c-ad24-4054-aa98-5cec3f78df1e",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nI feel like there is a lot to do to make an apple really awesome. And that's even ignoring all the other stuff that's already there and getting things into a better place.\n\nBut that's what's so exciting to me and this project is about getting the apple even further.\n\nI think it has the potential to create an entirely new, awesome world with all these great features!\n\nAll I can think about, when."
+        },
+        {
+            "id": "ec9cbe7f-16e4-45d8-b94d-828e8335601e",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nApple is an open source operating system designed to be used on the Mac. However, it is also being used by Apple Computer\u2019s iPhone and iPad. Apple used the technology from Microsoft to launch the iPhone. Therefore, Apple is using the technology from Microsoft and they are trying to license it with Microsoft.\n\nThe question: does Apple have to license Windows to the iPhone and iPad? The answer is yes. And it also covers every version."
+        },
+        {
+            "id": "7e8e4157-0aae-4ca6-ae85-9155ce7788b7",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world.\n\nApple is like an empty bag in your real life. It has no shape and\nsize, so we tend to define Apple in a limited sense. There are lots of\nthings that we would like to define Apple as to give it a more accurate\nreal-life meaning. Like you can say \u201cMacbook Air\u201d, \u201cMacbook Pro\u201d or\n\u201cMacBook\u201d, but not \u201cMacbook."
+        }
+    ]
+}

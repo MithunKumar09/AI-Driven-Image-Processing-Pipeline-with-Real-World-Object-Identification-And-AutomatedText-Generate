@@ -1,0 +1,42 @@
+{
+    "master_id": "ed4e2f5a-8f35-481b-9be3-c3cfcee411d8",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "65e10558-36f6-4150-8500-f21072e915ef",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nTo define apple in the real world, i need to answer some questions:\n\n1. What is an apple?\n\n2. What is a flower apple?\n\n3. What is a fruit?\n\n4. What is a green apple?\n\n5. What is a red apple?\n\n6. What is a yellow apple?\n\n7. What is a yellow-orange apple?\n\n8. What."
+        },
+        {
+            "id": "e989be49-28c6-46d1-83a3-bda5e8628d05",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nApple may not be the most glamorous of fruits, but it is one of the most popular fruits on the market. Apple growers have been doing this for at least two millennia: creating a variety that looks and feels the same (and is delicious) as other varieties, but at the same time tastes different.\n\nHere are a few of my favorite methods to create apples that aren\u2019t all apples\n\nYou don\u2019t want an."
+        },
+        {
+            "id": "0c47f5d1-a933-401b-896f-960631806bfc",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world.\n\nApple and App Store: A New Way to Market Apps\n\nApple has always been a player in the market for digital marketing. Back in the day, Apple offered a variety of services to their users. The App Store, the iTunes Store, Apple Arcade, and iPhone Applications were just some of the features of Apple\u2019s mobile platform that they provided. Today, the Apple App Store is one of the most important sources of digital marketing for developers."
+        }
+    ]
+}

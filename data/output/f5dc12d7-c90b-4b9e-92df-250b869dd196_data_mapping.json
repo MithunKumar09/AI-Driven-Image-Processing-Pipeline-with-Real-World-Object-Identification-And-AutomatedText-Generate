@@ -1,0 +1,42 @@
+{
+    "master_id": "f5dc12d7-c90b-4b9e-92df-250b869dd196",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "f894ddd8-e562-4b20-9991-70291040573e",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world. If you\u2019re talking about the real apple, that means a tree that has fruit which is edible, and you want to use that as your example.\n\nYou can\u2019t just pick the apples in the real world to use as examples, and that makes it hard to distinguish them. If I talk about what apples taste like when you eat them, they sound pretty vague.\n\nThat problem extends to definitions of terms.\n\nA."
+        },
+        {
+            "id": "d867a0b4-fdd7-45fd-a0f5-9d231fee174a",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world. The idea comes in the idea\nthat a real-world Apple iPhone 6 Plus case can be\nused in the real world, and the idea comes in the\nidea that the iPhone 6 Plus case can be used in\nthe real world. It seems as if there's really\nnothing stopping this from happening.\nA few years back, Apple started selling some fake\ncases with the iPhone 6 Plus outfitted inside.\nThe problem was that the."
+        },
+        {
+            "id": "276ac548-97cd-431b-963c-de2b16c558fc",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world. A simple example.\n\nThis is an extremely simple exercise, but it will get you familiar with how object oriented programming works. You don't need to understand OOP to start this exercise!\n\nApple, a fruit, is a vegetable that grows from the sap of a specific tree. This tree must be native to the area that you live in. The sap of this particular tree is called \"apple juice.\"\n\nApple trees in nature grow in."
+        }
+    ]
+}

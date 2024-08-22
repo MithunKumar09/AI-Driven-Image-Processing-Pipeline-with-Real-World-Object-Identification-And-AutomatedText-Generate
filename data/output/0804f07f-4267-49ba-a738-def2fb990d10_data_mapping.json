@@ -1,0 +1,42 @@
+{
+    "master_id": "0804f07f-4267-49ba-a738-def2fb990d10",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "75a8fa65-1745-42a0-ac2f-2b4e9db42a3b",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world.\n\n#\n\n( **1** )\n\nTo be completely honest: I don't care if it works for everyone. I have been trying to build this system for two years, and it has finally started making some progress:\n\nAs I write this, my code is working, the world has already moved on from the idea of a global app store, so this seems to be a nice way to distribute my content.\n\nFor the."
+        },
+        {
+            "id": "dc575279-f113-4a18-8a1c-e2304b466bee",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nApple Is Not an Apple.\n\nA Brief History of the Apple\n\nIn 17th-century India, King Porus of Elam ruled a vast empire including Afghanistan, Armenia, Iran, Pakistan, and Egypt. He was a pious king who believed that he was the one true god and that all of his subjects were his disciples. He forbade his subjects to worship the gods of other faiths, including the deities of the neighboring countries and."
+        },
+        {
+            "id": "db6f68c1-740a-4bec-98e7-6798bc93fd3d",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world. (And make sure it is as unique as possible)\n\nA:\n\nFirst, the real world is more likely to be a mixture of the two than pure apple. As a result, a unique, representative apple is probably not going to appear unless it is highly specific and rare.\nThat said, the two most common apple varieties would be something between:\n\nEnglish: The classic English apple.\nUS: The US apple or Northern Apple."
+        }
+    ]
+}

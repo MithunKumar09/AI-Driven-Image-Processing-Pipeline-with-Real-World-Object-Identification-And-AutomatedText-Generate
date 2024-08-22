@@ -1,0 +1,42 @@
+{
+    "master_id": "5f722c28-6876-4e7a-92c7-473dca852607",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "72d4c323-2c78-4872-870c-3263781a1a44",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world. Find or create an apple that fits your needs, then grow.\n\n(I'm not a huge Apple fan, but if they do something great they need to be recognized as a great company. I'm just a fan. Not an expert, but a fan. I don't think the fan theory is as good as the expert theory. And I think it needs to be updated).\n\nI think I like the idea of making a website that helps."
+        },
+        {
+            "id": "52b40c25-f7ad-48f7-8a85-fb9d0f001618",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\n- [Steve Lichtblau] - There is an\napples--and then you should be--the apple, which is just\napples--and then there's the apple part where you should put\napple, apple part.\nI don't want to get too fancy right now.\nThere is a lot of apple and that's what I'm talking about.\nYou should define it.\n- [Steve Lichtblau."
+        },
+        {
+            "id": "07a46db8-2311-4bef-a320-6c301cd47c1f",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world. \nSo I'll assume this is an integer \nand assume I already did \nthe steps here. Now I'm adding an \nelement\nto this array.\nSo let's add an element to this array\nusing\nthis syntax. So let's add a\nnew element to this array.\nI'm just doing this using my\nprevious steps. I'm adding an element\nto this array\nusing\nthis syntax."
+        }
+    ]
+}

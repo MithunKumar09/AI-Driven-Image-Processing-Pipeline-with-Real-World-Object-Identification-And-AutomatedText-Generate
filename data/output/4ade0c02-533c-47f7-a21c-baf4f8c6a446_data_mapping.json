@@ -1,0 +1,42 @@
+{
+    "master_id": "4ade0c02-533c-47f7-a21c-baf4f8c6a446",
+    "extracted_text": "",
+    "objects": [
+        {
+            "id": "cda3100c-4c82-4b81-b9ef-e743ead6a47c",
+            "label": "hot dog",
+            "score": 0.997973620891571,
+            "box": [
+                11,
+                16,
+                114,
+                122
+            ],
+            "description": "Define apple in the real world.\n\nA:\n\nYes, apple is in the real world.\nI am a real person, and I live in London, UK. Apple is available in supermarkets all over the UK. However, some of those supermarkets are in London, so they don't have apples in their shops. The supermarket I mentioned just had apples, but the shops are in another city. To make the story somewhat easier to read, I am referring to the US supermarkets."
+        },
+        {
+            "id": "944639e0-3c5e-473b-98b7-c20692e21f3b",
+            "label": "hot dog",
+            "score": 0.9978172779083252,
+            "box": [
+                130,
+                17,
+                236,
+                122
+            ],
+            "description": "Define apple in the real world.\u201d\n\nWhen I say that I am talking about it in \u201creal\u201d terms, I am not talking about a single apple. I am talking about the entire tree of apples, and about the apple itself. To be truly precise, I want to consider the tree as a whole, and not just a single apple. It has to be that apple, which is defined by its fruit.\n\nApple trees produce more apples than are eaten."
+        },
+        {
+            "id": "19574e7e-eb05-4043-acd0-5f0f89aea4b6",
+            "label": "hot dog",
+            "score": 0.9856386780738831,
+            "box": [
+                250,
+                21,
+                368,
+                123
+            ],
+            "description": "Define apple in the real world.\n\nWhat follows is a \u201cproof\u201d of concept \u2013 the first steps to understanding how this technology could transform society. It is a proof of concept not because this isn\u2019t a problem (it is), but rather to help get people thinking about it.\n\nThe next step of development involves developing a model of the problem that Apple can solve. It may be possible that you don\u2019t have the exact problem, but that if."
+        }
+    ]
+}
