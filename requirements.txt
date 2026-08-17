@@ -1,8 +1,33 @@
+# Runtime dependencies.
+#
+# Tested interpreter: Python 3.12.6  (Requires-Python is package metadata, not a
+# valid requirements.txt directive, so it is recorded here as a comment.)
+#
+# PyTorch CPU build
+# -----------------
+# The `+cpu` local version is load-bearing: a plain `pip install torch==2.4.1`
+# resolves a CUDA-enabled build on many platforms, silently pulling gigabytes of
+# GPU runtime and changing which kernels execute. The index URL below makes the
+# CPU build resolve deterministically.
+#
+# Verify after installing:
+#   python -c "import torch, torchvision; print(torch.__version__, torchvision.__version__, torch.cuda.is_available())"
+#   expected: 2.4.1+cpu 0.19.1+cpu False
+#
+# For a GPU machine, drop the --index-url line and install the CUDA build from
+# https://pytorch.org/get-started/locally/ instead.
 
+--extra-index-url https://download.pytorch.org/whl/cpu
 
-numpy==1.21.0
-opencv-python==4.5.3.56
-torch==1.9.0+cpu
-pillow==8.2.0
+torch==2.4.1+cpu
+torchvision==0.19.1+cpu
 
-git+https://github.com/ultralytics/yolov5.git
+transformers==4.44.2
+streamlit==1.38.0
+easyocr==1.7.1
+numpy==2.1.1
+pillow==10.4.0
+pandas==2.2.2
+
+# EasyOCR requires OpenCV; headless because the app never opens a GUI window.
+opencv-python-headless==4.10.0.84

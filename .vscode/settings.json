@@ -1,5 +1,9 @@
 {
     "python.analysis.extraPaths": [
-        "./yolov5"
+        "."
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "tests"
     ]
 }

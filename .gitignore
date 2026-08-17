@@ -1,9 +1,32 @@
-# Python virtual environment
+# Secrets - never commit
+.env
+*.env
+!.env.example
+
+# Python virtual environments
+newenv/
 newenv2/
-*.pyc
+venv/
+.venv/
+
+# Python artifacts
 __pycache__/
+*.pyc
 *.pyo
 *.pyd
+.pytest_cache/
+
+# Runtime artifacts (only created when PERSIST_ARTIFACTS=true)
+data/runs/
+data/output/
+data/segmented_objects/
+
+# Keep the regression fixture, ignore other uploads
+data/input_images/*
+!data/input_images/Two_Apples.jpg
+
+# Databases
 *.db
 *.sqlite3
-*.env
+
+.venv-release/

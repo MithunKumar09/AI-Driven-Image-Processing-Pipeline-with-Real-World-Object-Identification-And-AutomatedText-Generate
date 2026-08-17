@@ -1,219 +1,206 @@
-import io
+"""Streamlit UI - thin orchestration only.
+
+All inference logic lives in ``pipeline.py``; this file handles upload, layout,
+request-level logging and downloads.
+
+Streamlit version note: the pinned Streamlit is **1.38.0**, where ``st.image``
+accepts ``use_column_width`` and does **not** accept ``use_container_width``
+(verified via ``inspect.signature``).  ``st.dataframe`` does accept
+``use_container_width`` on this version.  Do not "modernize" the ``st.image``
+calls without also bumping Streamlit.
+"""
+
+from __future__ import annotations
+
 import sys
-import os
-import tempfile
-import uuid
-import torch
-import cv2
-import numpy as np
-import json
+from pathlib import Path
+
+# Make the repository root importable when run as `streamlit run streamlit_app/app.py`.
+_ROOT = Path(__file__).resolve().parents[1]
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.table import Table
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import streamlit as st
-from PIL import Image
-from models.segmentation_model import SegmentationModel
-from models.identification_model import IdentificationModel
-from models.text_extraction_model import TextExtractionModel
-from utils.visualization import visualize_segmented_objects
-from transformers import DetrImageProcessor, DetrForObjectDetection
-from utils.data_mapping import map_data_to_objects
 
-# Load COCO labels
-coco_labels = [
-    "N/A", "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck",
-    "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench",
-    "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe",
-    "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard",
-    "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard",
-    "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl",
-    "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza",
-    "donut", "cake", "chair", "couch", "potted plant", "bed", "dining table", "toilet",
-    "TV", "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave", "oven",
-    "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors", "teddy bear",
-    "hair drier", "toothbrush"
-]
+from config import settings
+from models.registry import InferenceBusyError
+from pipeline import run_inference
+from utils import rate_limit
+from utils.artifacts import build_export_bundle, persist_bundle
+from utils.data_mapping import serialize_payload
+from utils.logging_setup import get_logger, new_run_id, stage
+from utils.upload import UploadValidationError, load_validated_image
+from utils.visualization import add_provenance_mark
 
-# Initialize models
-segmentation_model = SegmentationModel()
-identification_model = IdentificationModel(labels=coco_labels)
-text_extraction_model = TextExtractionModel()
-processor = DetrImageProcessor.from_pretrained("facebook/detr-resnet-50")
-model = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50")
+logger = get_logger(__name__)
 
-# Title of the app
-st.title("Image Processing Pipeline")
+st.set_page_config(page_title="Image Analysis Pipeline", page_icon="🔍", layout="wide")
 
-# File uploader to upload image
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"], key="file_uploader_key")
+st.title("🔍 AI-Driven Image Analysis Pipeline")
+st.caption(
+    "Object detection (DETR) → grounded captioning (BLIP) → text recognition (EasyOCR). "
+    "Descriptions are model-generated and may contain errors."
+)
 
-if uploaded_file is not None:
-    try:
-        # Define the path to save the uploaded image in the 'data/input_images' folder
-        input_images_dir = "data/input_images"
-        os.makedirs(input_images_dir, exist_ok=True)
-        input_image_path = os.path.join(input_images_dir, uploaded_file.name)
-        
-        # Save the uploaded file to the 'data/input_images' folder
-        with open(input_image_path, "wb") as f:
-            f.write(uploaded_file.read())
+with st.sidebar:
+    st.header("Settings")
+    threshold = st.slider(
+        "Detection confidence threshold",
+        min_value=0.05,
+        max_value=0.95,
+        value=float(settings.detection_threshold),
+        step=0.05,
+        help="Only objects scoring above this are reported.",
+    )
+    st.divider()
+    st.caption(rate_limit.describe_limit(settings.max_runs_per_hour))
+    st.caption(f"Detection: `{settings.detr_ref}`")
+    st.caption(f"Captioning: `{settings.blip_ref}`")
 
-        # Display the uploaded image
-        image = Image.open(input_image_path)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
-        st.write("Processing...")
+uploaded_file = st.file_uploader(
+    "Choose an image", type=["jpg", "jpeg", "png", "webp"], key="file_uploader_key"
+)
 
-        # Convert image to numpy array and scale it for better detection
-        image_np = np.array(image)
-        height, width = image_np.shape[:2]
-        scale_factor = 800 / max(height, width)  # Scale to a max dimension of 800 pixels
-        new_dim = (int(width * scale_factor), int(height * scale_factor))
-        scaled_image_np = cv2.resize(image_np, new_dim)
-        scaled_image = Image.fromarray(scaled_image_np)
+if uploaded_file is None:
+    st.info("Upload an image to begin.")
+    st.stop()
 
-        # Perform object detection using Hugging Face model
-        inputs = processor(images=scaled_image, return_tensors="pt")
-        outputs = model(**inputs)
+# --- Request scope begins: fresh run_id for EVERY execution, cache hit or not.
+run_id = new_run_id()
 
-        # Post-process outputs
-        target_sizes = torch.tensor([scaled_image.size[::-1]])
-        results = processor.post_process_object_detection(outputs, target_sizes=target_sizes, threshold=0.5)[0]  # Lower threshold
+try:
+    with stage(logger, "upload", run_id=run_id, name_len=len(uploaded_file.name)) as rec:
+        validated = load_validated_image(uploaded_file)
+        rec["width"] = validated.width
+        rec["height"] = validated.height
+        rec["format"] = validated.source_format
+except UploadValidationError as exc:
+    st.warning(f"⚠️ {exc}")
+    logger.warning("upload.rejected", extra={"run_id": run_id, "reason": str(exc)})
+    st.stop()
 
-        # Scale back to original dimensions
-        results["boxes"] = [[box[0] / scale_factor, box[1] / scale_factor, box[2] / scale_factor, box[3] / scale_factor] for box in results["boxes"]]
+status = rate_limit.check(st.session_state, max_runs_per_hour=settings.max_runs_per_hour)
+if not status.allowed:
+    minutes = max(1, status.retry_after_seconds // 60)
+    st.warning(f"⏳ Demo limit reached. Please try again in about {minutes} minute(s).")
+    logger.info("ratelimit.blocked", extra={"run_id": run_id})
+    st.stop()
 
-        # Display detected objects
-        st.write("Identifying objects...")
-        identified_objects = []
-        for score, label, box in zip(results["scores"], results["labels"], results["boxes"]):
-            box = [i.item() for i in box]  # Ensure box is a list of floats
-            label_name = coco_labels[label.item()]  # Map label index to class name
-            identified_objects.append({
-                "label": label_name,
-                "score": score.item(),
-                "box": box
-            })
-            st.write(f"Object - Identified as: {label_name} with confidence {score:.2f}")
+left, right = st.columns(2)
+with left:
+    st.subheader("Uploaded")
+    st.image(validated.image, use_column_width=True)
 
-        # Visualize detected objects
-        visualized_image = visualize_segmented_objects(
-            image_np,
-            [obj["box"] for obj in identified_objects],
-            [coco_labels.index(obj["label"]) for obj in identified_objects],  # Convert label names to indices
-            coco_labels
+try:
+    with st.status("Analyzing image…", expanded=False) as status_box:
+        st.write("Detecting objects, reading text, and generating descriptions…")
+        result = run_inference(
+            validated, uploaded_file.getvalue(), detection_threshold=threshold
         )
-        
-        # Convert PIL image to bytes for Streamlit
-        image_bytes = io.BytesIO()
-        visualized_image.save(image_bytes, format='PNG')
-        image_bytes.seek(0)
-        
-        st.image(image_bytes, caption='Detected Objects', use_column_width=True)
+        status_box.update(label="Analysis complete", state="complete")
+except InferenceBusyError as exc:
+    st.warning(f"⏳ {exc}")
+    logger.warning("inference.busy", extra={"run_id": run_id})
+    st.stop()
+except Exception as exc:  # unexpected: log the traceback, show an id, not a stack
+    logger.exception("pipeline.failed", extra={"run_id": run_id})
+    st.error(
+        f"Something went wrong while analyzing this image. Reference: `{run_id}`\n\n"
+        f"({type(exc).__name__})"
+    )
+    st.stop()
 
-        # Extract text from the uploaded image
-        st.write("Extracting text from the uploaded image...")
-        extracted_text = text_extraction_model.extract_text(image_np)
-        st.write(f"Extracted Text: {extracted_text}")
+rate_limit.record_run(st.session_state)
+logger.info(
+    "request.completed",
+    extra={
+        "run_id": run_id,
+        "objects": len(result.detections),
+        "spans": len(result.spans),
+    },
+)
 
-        # Step 2: Object Extraction, Storage, and Description/Summarization
-        st.write("Extracting and generating summaries for identified objects...")
-        master_id = str(uuid.uuid4())
-        objects_dir = f"data/segmented_objects/{master_id}"
-        os.makedirs(objects_dir, exist_ok=True)
+with right:
+    st.subheader("Detected objects")
+    st.image(result.annotated, use_column_width=True)
 
-        # Display segmented objects in a grid view
-        cols = st.columns(3)  # Create three columns for grid layout
-        object_data = []
-        for i, obj in enumerate(identified_objects):
-            label_name = obj["label"]
-            score = obj["score"]
-            box = obj["box"]
-            box = [int(i) for i in box]
-            obj_img = image_np[box[1]:box[3], box[0]:box[2]]
-            
-            if obj_img.size == 0:
-                continue
+# --- Results -----------------------------------------------------------------
+if not result.detections:
+    st.info(
+        "No COCO objects were detected above the confidence threshold. "
+        "Try lowering the threshold in the sidebar."
+    )
+else:
+    rows = [
+        {
+            "Object": obj["label"],
+            "Confidence": f"{obj['score']:.0%}",
+            "Description": obj["description"],
+            "Box": str(obj["box"]),
+        }
+        for obj in result.payload["objects"]
+    ]
+    st.subheader(f"Summary ({len(rows)} object{'s' if len(rows) != 1 else ''})")
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
 
-            obj_pil = Image.fromarray(obj_img)
-            obj_path = os.path.join(objects_dir, f"{label_name}_{i}.png")
-            obj_pil.save(obj_path)
-            
-            # Display in grid layout
-            with cols[i % 3]:
-                st.image(obj_pil, caption=f"{label_name} - Score: {score:.2f}")
-            
-            # Generate and display description
-            description = identification_model.generate_description(obj_img)
-            st.write(f"Object Description: {description}")
-
-            # Summarize each object
-            summary = {
-                "Object": label_name,
-                "Confidence": f"{score:.2f}",
-                "Description": description,
-                "Bounding Box": box
-            }
-            st.write(f"Summarized Attributes of Each Object:")
-            st.write(summary)
-
-            object_data.append({
-                "id": str(uuid.uuid4()),
-                "label": label_name,
-                "score": score,
-                "box": box,
-                "description": description
-            })
-
-        # Save data to file
-        output_file = f"data/output/{master_id}_data_mapping.json"
-        map_data_to_objects({"master_id": master_id, "extracted_text": extracted_text, "objects": object_data}, output_file)
-        st.write(f"Data mapping saved to {output_file}")
-
-        # Generate a summary table and final output image
-        st.write("Generating final output image and summary table...")
-
-        # Create DataFrame for the table
-        df = pd.DataFrame(object_data)
-
-        # Wrap text for the description column to prevent overflow
-        df["description"] = df["description"].apply(lambda x: "\n".join([x[i:i+30] for i in range(0, len(x), 30)]))
-
-
-        # Create a figure and axis for the table
-        fig, ax = plt.subplots(figsize=(14, len(df) * 0.8 + 1))  # Adjust size based on number of rows
-        ax.axis('off')  # Hide the axis
-
-        # Create the table using plt.table for better control
-        table = ax.table(
-            cellText=df.values,
-            colLabels=df.columns,
-            cellLoc='center',
-            loc='center',
-            colColours=['lightgrey'] * len(df.columns),
-            colWidths=[0.4, 0.2, 0.2, 0.2, 0.6] 
+    flagged = [
+        obj["label"]
+        for obj in result.payload["objects"]
+        if obj.get("caption_mentions_label") is False
+    ]
+    if flagged:
+        st.caption(
+            "⚠️ Diagnostic: the caption did not mention the detected label for "
+            f"{', '.join(sorted(set(flagged)))}. This is a heuristic signal that the "
+            "row may be less reliable — not a correctness check."
         )
 
-        # Adjust table properties
-        table.auto_set_font_size(False)
-        table.set_fontsize(14)
-        table.scale(1.2, 15)  # Scale the table: width=1, height=1.5 for better readability
+    st.subheader("Extracted objects")
+    columns = st.columns(3)
+    for index, (name, image) in enumerate(result.crops):
+        obj = result.payload["objects"][index]
+        with columns[index % 3]:
+            st.image(image, caption=f"{obj['label']} · {obj['score']:.0%}", use_column_width=True)
 
-        # Save the table as an image
-        table_image_path = f"data/output/{master_id}_summary_table.png"
-        plt.savefig(table_image_path, bbox_inches='tight', pad_inches=0.2)
-        plt.close(fig)
+document_text = result.payload.get("document_text") or []
+if document_text:
+    st.subheader("Text found in the image")
+    st.write(" ".join(document_text))
 
-        # Display the summary table
-        table_image = Image.open(table_image_path)
-        st.image(table_image, caption='Summary Table', use_column_width=True)
-        st.write(f"Summary table saved to {table_image_path}")
+# --- Downloads (in-memory by default; no files written) ----------------------
+with stage(logger, "export", run_id=run_id) as rec:
+    payload_json = serialize_payload(result.payload)
+    annotated_for_export = add_provenance_mark(
+        result.annotated, f"AI-annotated · {settings.detr_model_id}"
+    )
+    bundle = build_export_bundle(
+        payload_json=payload_json,
+        annotated=annotated_for_export,
+        crops=list(result.crops),
+    )
+    persisted = persist_bundle(bundle, run_id=run_id)
+    rec["persisted"] = bool(persisted)
 
-        # Save final visualized image with annotations
-        final_output_image_path = f"data/output/{master_id}_final_output.png"
-        visualized_image.save(final_output_image_path)
-        st.image(final_output_image_path, caption='Final Output Image with Annotations', use_column_width=True)
-        st.write(f"Final output image saved to {final_output_image_path}")
+st.subheader("Download")
+col_a, col_b = st.columns(2)
+with col_a:
+    st.download_button(
+        "⬇️ Results (JSON)",
+        data=bundle.payload_json,
+        file_name="analysis.json",
+        mime="application/json",
+    )
+with col_b:
+    st.download_button(
+        "⬇️ Annotated image (PNG)",
+        data=bundle.annotated_png,
+        file_name="annotated.png",
+        mime="image/png",
+    )
 
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
+st.caption(
+    "Object descriptions are generated by an image-captioning model and may include "
+    "details not present in the photo. Labels, confidences and recognized text are "
+    "measured outputs; descriptions are generated prose."
+)
