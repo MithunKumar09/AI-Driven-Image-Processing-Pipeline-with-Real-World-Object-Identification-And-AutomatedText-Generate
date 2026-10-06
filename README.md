@@ -1,7 +1,7 @@
 # AI-Driven Image Analysis Pipeline
 
 **Full name:** AI-Driven Image Processing Pipeline with Real-World Object Identification and Automated Text Generation
-**Status of this document:** internal engineering reference (architecture, algorithms, complexity, contracts, operations)
+**Document scope:** Engineering architecture, algorithms, contracts, reliability, testing and operational reference.
 
 ---
 
